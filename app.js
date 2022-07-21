@@ -9,7 +9,7 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
-
+const port = process.env.PORT || 3001;
 // const bcrypt = require("bcrypt");
 // const md5 = require("md5");
 // const { encryptedChildren } = require("mongoose-encryption");
@@ -34,7 +34,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB", { useNewUrlParser: true });
+mongoose.connect(
+  "mongodb+srv://cyrillo:admin@cluster0.v3nzy.mongodb.net/?retryWrites=true&w=majority/users",
+  { useNewUrlParser: true }
+);
 const userSchema = new mongoose.Schema({
   email: String,
   password: String,
@@ -221,6 +224,6 @@ app.get("/logout", (req, res) => {
 //   });
 // });
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("Started on port 3000");
 });
